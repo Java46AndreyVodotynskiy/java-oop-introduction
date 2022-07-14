@@ -42,5 +42,4 @@ class RectangleTests {
 		System.out.println("\n");
 		square.draw();
 	}
-
 }
