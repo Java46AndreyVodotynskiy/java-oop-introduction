@@ -21,7 +21,7 @@ public class SalesPerson extends Employee {
 
 	@Override
 	public int computePay() {
-		int bonus = sales / 100 * percentPay;
+		int bonus = sales / 100 * percentPay; //[YG] if sales less than 100 you will get 0 even if ercentPay = 100. 
 		return super.computePay() + bonus;
 	}
 	
