@@ -22,7 +22,7 @@ public class WageEmployee extends Employee {
 	@Override
 	public int computePay() {
 		
-		return wage * hours;
+		return wage * hours; //[YG] - it should be added to the basic salary
 	}
 
 }
