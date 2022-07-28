@@ -114,6 +114,25 @@ class CompanyTests {
 			};
 			assertArrayEquals(expected, company.sortEmployeesBySalary());
 	}
+	
+	@Test
+	void testFindSalesPerson() {
+		Employee[] expected = {
+				empl2
+		};
+		assertArrayEquals(expected, company.findEmployees(new SalesPersonPredicate()));
+	}
+	
+	@Test
+	void testFindEmployeesSalaryRange() {
+		Employee[] expectedGT10000 = {empl1};
+		Employee[] expected20000_30000 = {};
+		Employee[] expected1000_1500 = {empl2};
+		assertArrayEquals(expectedGT10000, company.findEmployees(new SalaryRangePredicate(10000, Integer.MAX_VALUE)));
+		assertArrayEquals(expected20000_30000, company.findEmployees(new SalaryRangePredicate(20000, 30000)));
+		assertArrayEquals(expected1000_1500, company.findEmployees(new SalaryRangePredicate(1000, 1500)));
+		
+	}
 
 }
 
