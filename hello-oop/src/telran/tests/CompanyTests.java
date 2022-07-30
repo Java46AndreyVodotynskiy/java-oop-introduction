@@ -2,9 +2,14 @@ package telran.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import telran.numbers.EvenNumbersPredicate;
 import telran.people.*;
 
 
@@ -38,9 +43,9 @@ class CompanyTests {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		//company = new CompanyArray();
+		company = new CompanyArray();
 		//TODO for HW #10
-		company = new CompanySortedArray(); //for HW #10 
+//		company = new CompanySortedArray(); //for HW #10 
 		for (int i = 0; i < employees.length; i++) {
 			company.addEmployee(employees[i]);
 		}
@@ -132,6 +137,38 @@ class CompanyTests {
 		assertArrayEquals(expected20000_30000, company.findEmployees(new SalaryRangePredicate(20000, 30000)));
 		assertArrayEquals(expected1000_1500, company.findEmployees(new SalaryRangePredicate(1000, 1500)));
 		
+	}
+	
+	@Test
+	void companyIterableTest() {
+		Employee[] expected = {empl1, empl2, empl3};
+		Employee[] actual = getSortedEmployeesFromIterating(3);
+		assertArrayEquals(expected, actual);
+		
+	}
+
+	private Employee[] getSortedEmployeesFromIterating(int size) {
+		Employee[] res = new Employee[size];
+		int ind = 0;
+		for(Employee empl: company) {
+			res[ind++] = empl;
+		}
+		if (!(company instanceof CompanySortedArray)) {
+			Arrays.sort(res);
+		}
+		return res;
+	}
+	@Test
+	void NoSuchElementTest() {
+		boolean flException = false;
+		ICompany anotherCompany = new CompanyArray();
+		Iterator<Employee> it = anotherCompany.iterator();
+		try {
+			it.next();
+		} catch (NoSuchElementException e) {
+			flException = true;
+		}
+		assertTrue(flException);
 	}
 
 }
